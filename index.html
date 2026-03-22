@@ -26,3 +26,333 @@
 </body>
 </html>
 <link rel="stylesheet" href="style.css">
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trading New - Jarvis AI</title>
+    <style>
+        body { background-color: #121212; color: white; font-family: 'Segoe UI', sans-serif; text-align: center; margin: 0; padding: 10px; }
+        h1 { font-size: 24px; margin-bottom: 15px; letter-spacing: 2px; }
+        
+        /* Chart Container */
+        .chart-container { width: 100%; height: 400px; margin-bottom: 15px; border-radius: 10px; overflow: hidden; border: 1px solid #333; }
+
+        /* Status Box */
+        .status-card { background: #1e1e1e; padding: 15px; border-radius: 12px; margin-bottom: 15px; }
+        .price { font-size: 32px; color: #00ff88; font-weight: bold; margin: 5px 0; }
+        .indicators { color: #888; font-size: 14px; }
+
+        /* Jarvis Alert Box */
+        #jarvis-box { 
+            background: #2a2a2a; padding: 12px; border-radius: 8px; margin-bottom: 20px;
+            border-left: 5px solid #555; transition: 0.3s; display: flex; align-items: center; justify-content: center;
+        }
+        .alert-high { border-left-color: #ff4444 !important; background: #3d1a1a !important; }
+        .alert-low { border-left-color: #00c853 !important; background: #1b3d1b !important; }
+
+        /* Buttons */
+        .btn-group { display: flex; gap: 10px; justify-content: center; }
+        button { flex: 1; padding: 15px; border: none; border-radius: 5px; font-weight: bold; font-size: 16px; cursor: pointer; max-width: 150px; }
+        .buy { background: #00c853; color: white; }
+        .sell { background: #ff4444; color: white; }
+    </style>
+</head>
+<body>
+
+    <h1>TRADING NEW</h1>
+
+    <div class="chart-container">
+        <div id="tradingview_chart" style="height: 100%;"></div>
+    </div>
+
+    <div class="status-card">
+        <div style="color: #888; font-weight: bold;">NIFTY 50 LIVE</div>
+        <div class="price">₹ <span id="current-price">19598.57</span></div>
+        <div class="indicators">RSI: <span id="rsi-val">55</span> | MACD: Bullish</div>
+    </div>
+
+    <div id="jarvis-box">
+        <span style="font-size: 20px; margin-right: 10px;">🤖</span>
+        <div id="jarvis-msg">Jarvis AI: ईश्वर भाई, मार्केट अभी स्थिर है। सही मौके का इंतज़ार करें।</div>
+    </div>
+
+    <div class="btn-group">
+        <button class="buy">BUY</button>
+        <button class="sell">SELL</button>
+    </div>
+
+    <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+    <script>
+        // TradingView Widget Setup
+        new TradingView.widget({
+            "autosize": true,
+            "symbol": "NSE:NIFTY",
+            "interval": "5",
+            "timezone": "Asia/Kolkata",
+            "theme": "dark",
+            "style": "1",
+            "locale": "in",
+            "container_id": "tradingview_chart",
+            "hide_top_toolbar": false,
+            "allow_symbol_change": true,
+            "save_image": false
+        });
+
+        // Smart Alert Logic (Demo function)
+        function updateJarvisAlert(rsi) {
+            const box = document.getElementById('jarvis-box');
+            const msg = document.getElementById('jarvis-msg');
+            const rsiSpan = document.getElementById('rsi-val');
+            
+            rsiSpan.innerText = rsi;
+
+            if (rsi >= 70) {
+                box.className = "alert-high";
+                msg.innerText = "Jarvis AI: ईश्वर भाई, RSI 70+ है (Overbought)! मार्केट गिर सकता है, संभल कर रहें।";
+                sendNotification("RSI Alert", "Market is Overbought (RSI: " + rsi + ")");
+            } else if (rsi <= 30) {
+                box.className = "alert-low";
+                msg.innerText = "Jarvis AI: ईश्वर भाई, RSI 30 के नीचे है (Oversold)! यहाँ से रिकवरी आ सकती है।";
+                sendNotification("RSI Alert", "Market is Oversold (RSI: " + rsi + ")");
+            } else {
+                box.className = "";
+                msg.innerText = "Jarvis AI: ईश्वर भाई, मार्केट अभी स्थिर है। सही मौके का इंतज़ार करें।";
+            }
+        }
+
+        // Browser Notification Permission
+        function sendNotification(title, body) {
+            if (Notification.permission === "granted") {
+                new Notification(title, { body: body });
+            } else if (Notification.permission !== "denied") {
+                Notification.requestPermission();
+            }
+        }
+
+        // Example: Testing alert with RSI 75 after 3 seconds
+        setTimeout(() => updateJarvisAlert(75), 3000);
+    </script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trading New - Jarvis AI</title>
+    <style>
+        body { background-color: #121212; color: white; font-family: 'Segoe UI', sans-serif; text-align: center; margin: 0; padding: 10px; }
+        h1 { font-size: 24px; margin-bottom: 15px; letter-spacing: 2px; }
+        
+        /* Chart Container */
+        .chart-container { width: 100%; height: 400px; margin-bottom: 15px; border-radius: 10px; overflow: hidden; border: 1px solid #333; }
+
+        /* Status Box */
+        .status-card { background: #1e1e1e; padding: 15px; border-radius: 12px; margin-bottom: 15px; }
+        .price { font-size: 32px; color: #00ff88; font-weight: bold; margin: 5px 0; }
+        .indicators { color: #888; font-size: 14px; }
+
+        /* Jarvis Alert Box */
+        #jarvis-box { 
+            background: #2a2a2a; padding: 12px; border-radius: 8px; margin-bottom: 20px;
+            border-left: 5px solid #555; transition: 0.3s; display: flex; align-items: center; justify-content: center;
+        }
+        .alert-high { border-left-color: #ff4444 !important; background: #3d1a1a !important; }
+        .alert-low { border-left-color: #00c853 !important; background: #1b3d1b !important; }
+
+        /* Buttons */
+        .btn-group { display: flex; gap: 10px; justify-content: center; }
+        button { flex: 1; padding: 15px; border: none; border-radius: 5px; font-weight: bold; font-size: 16px; cursor: pointer; max-width: 150px; }
+        .buy { background: #00c853; color: white; }
+        .sell { background: #ff4444; color: white; }
+    </style>
+</head>
+<body>
+
+    <h1>TRADING NEW</h1>
+
+    <div class="chart-container">
+        <div id="tradingview_chart" style="height: 100%;"></div>
+    </div>
+
+    <div class="status-card">
+        <div style="color: #888; font-weight: bold;">NIFTY 50 LIVE</div>
+        <div class="price">₹ <span id="current-price">19598.57</span></div>
+        <div class="indicators">RSI: <span id="rsi-val">55</span> | MACD: Bullish</div>
+    </div>
+
+    <div id="jarvis-box">
+        <span style="font-size: 20px; margin-right: 10px;">🤖</span>
+        <div id="jarvis-msg">Jarvis AI: ईश्वर भाई, मार्केट अभी स्थिर है। सही मौके का इंतज़ार करें।</div>
+    </div>
+
+    <div class="btn-group">
+        <button class="buy">BUY</button>
+        <button class="sell">SELL</button>
+    </div>
+
+    <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+    <script>
+        // TradingView Widget Setup
+        new TradingView.widget({
+            "autosize": true,
+            "symbol": "NSE:NIFTY",
+            "interval": "5",
+            "timezone": "Asia/Kolkata",
+            "theme": "dark",
+            "style": "1",
+            "locale": "in",
+            "container_id": "tradingview_chart",
+            "hide_top_toolbar": false,
+            "allow_symbol_change": true,
+            "save_image": false
+        });
+
+        // Smart Alert Logic (Demo function)
+        function updateJarvisAlert(rsi) {
+            const box = document.getElementById('jarvis-box');
+            const msg = document.getElementById('jarvis-msg');
+            const rsiSpan = document.getElementById('rsi-val');
+            
+            rsiSpan.innerText = rsi;
+
+            if (rsi >= 70) {
+                box.className = "alert-high";
+                msg.innerText = "Jarvis AI: ईश्वर भाई, RSI 70+ है (Overbought)! मार्केट गिर सकता है, संभल कर रहें।";
+                sendNotification("RSI Alert", "Market is Overbought (RSI: " + rsi + ")");
+            } else if (rsi <= 30) {
+                box.className = "alert-low";
+                msg.innerText = "Jarvis AI: ईश्वर भाई, RSI 30 के नीचे है (Oversold)! यहाँ से रिकवरी आ सकती है।";
+                sendNotification("RSI Alert", "Market is Oversold (RSI: " + rsi + ")");
+            } else {
+                box.className = "";
+                msg.innerText = "Jarvis AI: ईश्वर भाई, मार्केट अभी स्थिर है। सही मौके का इंतज़ार करें।";
+            }
+        }
+
+        // Browser Notification Permission
+        function sendNotification(title, body) {
+            if (Notification.permission === "granted") {
+                new Notification(title, { body: body });
+            } else if (Notification.permission !== "denied") {
+                Notification.requestPermission();
+            }
+     <!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trading New - Jarvis AI</title>
+    <style>
+        body { background-color: #121212; color: white; font-family: 'Segoe UI', sans-serif; text-align: center; margin: 0; padding: 10px; }
+        h1 { font-size: 24px; margin-bottom: 15px; letter-spacing: 2px; }
+        
+        /* Chart Container */
+        .chart-container { width: 100%; height: 400px; margin-bottom: 15px; border-radius: 10px; overflow: hidden; border: 1px solid #333; }
+
+        /* Status Box */
+        .status-card { background: #1e1e1e; padding: 15px; border-radius: 12px; margin-bottom: 15px; }
+        .price { font-size: 32px; color: #00ff88; font-weight: bold; margin: 5px 0; }
+        .indicators { color: #888; font-size: 14px; }
+
+        /* Jarvis Alert Box */
+        #jarvis-box { 
+            background: #2a2a2a; padding: 12px; border-radius: 8px; margin-bottom: 20px;
+            border-left: 5px solid #555; transition: 0.3s; display: flex; align-items: center; justify-content: center;
+        }
+        .alert-high { border-left-color: #ff4444 !important; background: #3d1a1a !important; }
+        .alert-low { border-left-color: #00c853 !important; background: #1b3d1b !important; }
+
+        /* Buttons */
+        .btn-group { display: flex; gap: 10px; justify-content: center; }
+        button { flex: 1; padding: 15px; border: none; border-radius: 5px; font-weight: bold; font-size: 16px; cursor: pointer; max-width: 150px; }
+        .buy { background: #00c853; color: white; }
+        .sell { background: #ff4444; color: white; }
+    </style>
+</head>
+<body>
+
+    <h1>TRADING NEW</h1>
+
+    <div class="chart-container">
+        <div id="tradingview_chart" style="height: 100%;"></div>
+    </div>
+
+    <div class="status-card">
+        <div style="color: #888; font-weight: bold;">NIFTY 50 LIVE</div>
+        <div class="price">₹ <span id="current-price">19598.57</span></div>
+        <div class="indicators">RSI: <span id="rsi-val">55</span> | MACD: Bullish</div>
+    </div>
+
+    <div id="jarvis-box">
+        <span style="font-size: 20px; margin-right: 10px;">🤖</span>
+        <div id="jarvis-msg">Jarvis AI: ईश्वर भाई, मार्केट अभी स्थिर है। सही मौके का इंतज़ार करें।</div>
+    </div>
+
+    <div class="btn-group">
+        <button class="buy">BUY</button>
+        <button class="sell">SELL</button>
+    </div>
+
+    <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+    <script>
+        // TradingView Widget Setup
+        new TradingView.widget({
+            "autosize": true,
+            "symbol": "NSE:NIFTY",
+            "interval": "5",
+            "timezone": "Asia/Kolkata",
+            "theme": "dark",
+            "style": "1",
+            "locale": "in",
+            "container_id": "tradingview_chart",
+            "hide_top_toolbar": false,
+            "allow_symbol_change": true,
+            "save_image": false
+        });
+
+        // Smart Alert Logic (Demo function)
+        function updateJarvisAlert(rsi) {
+            const box = document.getElementById('jarvis-box');
+            const msg = document.getElementById('jarvis-msg');
+            const rsiSpan = document.getElementById('rsi-val');
+            
+            rsiSpan.innerText = rsi;
+
+            if (rsi >= 70) {
+                box.className = "alert-high";
+                msg.innerText = "Jarvis AI: ईश्वर भाई, RSI 70+ है (Overbought)! मार्केट गिर सकता है, संभल कर रहें।";
+                sendNotification("RSI Alert", "Market is Overbought (RSI: " + rsi + ")");
+            } else if (rsi <= 30) {
+                box.className = "alert-low";
+                msg.innerText = "Jarvis AI: ईश्वर भाई, RSI 30 के नीचे है (Oversold)! यहाँ से रिकवरी आ सकती है।";
+                sendNotification("RSI Alert", "Market is Oversold (RSI: " + rsi + ")");
+            } else {
+                box.className = "";
+                msg.innerText = "Jarvis AI: ईश्वर भाई, मार्केट अभी स्थिर है। सही मौके का इंतज़ार करें।";
+            }
+        }
+
+        // Browser Notification Permission
+        function sendNotification(title, body) {
+            if (Notification.permission === "granted") {
+                new Notification(title, { body: body });
+            } else if (Notification.permission !== "denied") {
+                Notification.requestPermission();
+            }
+        }
+
+        // Example: Testing alert with RSI 75 after 3 seconds
+        setTimeout(() => updateJarvisAlert(75), 3000);
+    </script>
+</body>
+</html>
+   }
+
+        // Example: Testing alert with RSI 75 after 3 seconds
+        setTimeout(() => updateJarvisAlert(75), 3000);
+    </script>
+</body>
+</html>
